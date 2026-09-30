@@ -136,12 +136,13 @@ a{color:var(--accent);text-decoration:none}
 @media(max-width:768px){.header{padding:12px 16px}.container{padding:24px 16px}.hero h1{font-size:28px}.section{padding:20px}.section-title{font-size:19px}.filters-title{font-size:22px}.row-scroll{grid-auto-columns:180px;gap:12px}.collections-scroll{grid-auto-columns:220px;gap:14px}.collection-card{height:140px}.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.alice-btn{padding:7px 12px;font-size:13px}.alice-btn span{display:none}.page-btn{min-width:36px;height:36px;font-size:14px}}
 </style>
 </head>
-<body>
+
+    <body>
 
 <header class="header">
     <div class="logo">Кино на вечер</div>
     <div class="search">
-        <input type="text" id="search-input" placeholder=" Найти фильм или актера">
+        <input type="text" id="search-input" placeholder="Фильмы, сериалы, персоны">
     </div>
     <div class="header-right">
         <button class="icon-btn" id="fav-btn" title="Избранное">
@@ -161,9 +162,10 @@ a{color:var(--accent);text-decoration:none}
 
     <section class="hero section-flat">
         <h1>Что хотите посмотреть сегодня?</h1>
-        <p>Найдём любой фильм под настроение </p>
+        <p>Найдём любой фильм под настроение.</p>
     </section>
 
+    <!-- ✨ Подобрали по вашим интересам -->
     <section class="section">
         <div class="section-header">
             <div class="section-title">✨ Подобрали по вашим интересам</div>
@@ -175,6 +177,7 @@ a{color:var(--accent);text-decoration:none}
         </div>
     </section>
 
+    <!-- 🔥 Популярно сейчас -->
     <section class="section">
         <div class="section-header">
             <div class="section-title">🔥 Популярно сейчас</div>
@@ -186,9 +189,10 @@ a{color:var(--accent);text-decoration:none}
         </div>
     </section>
 
+    <!-- 🎭 Жанры -->
     <section class="section">
         <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;">
-            <div class="section-title"> Жанры</div>
+            <div class="section-title">🎭 Жанры</div>
             <a href="section.html?title=Жанры" class="collections-all">Больше →</a>
         </div>
         <div class="row-wrapper" id="collections-wrapper">
@@ -210,29 +214,33 @@ a{color:var(--accent);text-decoration:none}
         </div>
     </section>
 
+    <!-- 🍿 Под случай -->
     <section class="section">
         <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;">
-            <div class="section-title"> По настроению</div>
-            <a href="section.html?title=По настроению" class="collections-all">Больше →</a>
+            <div class="section-title">🍿 Под случай</div>
+            <a href="section.html?title=Под случай" class="collections-all">Больше →</a>
         </div>
-        <div class="row-wrapper" id="mood-wrapper">
-            <div class="collections-scroll" id="mood-scroll">
-                <a class="collection-item" href="section.html?title=По настроению&mood=funny" data-collection-link="funny"><div class="collection-name">😄 Весёлое</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="funny"></div></div></a>
-                <a class="collection-item" href="section.html?title=По настроению&mood=melancholic" data-collection-link="melancholic"><div class="collection-name">🌧 Меланхоличное</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="melancholic"></div></div></a>
-                <a class="collection-item" href="section.html?title=По настроению&mood=sad" data-collection-link="sad"><div class="collection-name">😢 Грустное</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="sad"></div></div></a>
-                <a class="collection-item" href="section.html?title=По настроению&mood=tense" data-collection-link="tense"><div class="collection-name">⚡ Напряжённое</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="tense"></div></div></a>
-                <a class="collection-item" href="section.html?title=По настроению&mood=cozy" data-collection-link="cozy"><div class="collection-name">🕯 Уютное</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="cozy"></div></div></a>
-                <a class="collection-item" href="section.html?title=По настроению&mood=light" data-collection-link="light"><div class="collection-name">☀️ Лёгкое</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="light"></div></div></a>
+        <div class="row-wrapper" id="occasion-wrapper">
+            <div class="collections-scroll" id="occasion-scroll">
+                <a class="collection-item" href="section.html?title=Под случай&occasion=family" data-collection-link="occ-family"><div class="collection-name">👨‍👩‍👧 Семейный вечер</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-family"></div></div></a>
+                <a class="collection-item" href="section.html?title=Под случай&occasion=girls" data-collection-link="occ-girls"><div class="collection-name">💃 Девичник</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-girls"></div></div></a>
+                <a class="collection-item" href="section.html?title=Под случай&occasion=friends" data-collection-link="occ-friends"><div class="collection-name">🧑‍🤝‍🧑 Вечер с друзьями</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-friends"></div></div></a>
+                <a class="collection-item" href="section.html?title=Под случай&occasion=sport" data-collection-link="occ-sport"><div class="collection-name">🏋️ Про спорт</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-sport"></div></div></a>
+                <a class="collection-item" href="section.html?title=Под случай&occasion=inspire" data-collection-link="occ-inspire"><div class="collection-name">✨ Вдохновляющее</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-inspire"></div></div></a>
+                <a class="collection-item" href="section.html?title=Под случай&occasion=date" data-collection-link="occ-date"><div class="collection-name">💘 Для свидания</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-date"></div></div></a>
+                <a class="collection-item" href="section.html?title=Под случай&occasion=alone" data-collection-link="occ-alone"><div class="collection-name">🌧 На одинокий вечер</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-alone"></div></div></a>
+                <a class="collection-item" href="section.html?title=Под случай&occasion=holiday" data-collection-link="occ-holiday"><div class="collection-name">🎄 Праздничное</div><div class="collection-card"><div class="collection-overlay"></div><div class="collection-count" data-count="occ-holiday"></div></div></a>
             </div>
             <button class="row-arrow row-arrow-left">‹</button>
             <button class="row-arrow row-arrow-right">›</button>
         </div>
     </section>
 
+    <!-- ⏱ Продолжительность фильма -->
     <section class="section">
         <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;">
-            <div class="section-title">⏱ Длительность фильма</div>
-            <a href="section.html?title=Продолжительность фильма" class="collections-all">Больше →</a>
+            <div class="section-title">⏱ Продолжительность фильма</div>
+            <a href="section.html?title=Продолжительность фильма" id="time-more-link" class="collections-all">Больше →</a>
         </div>
         <div class="chips" id="time-chips">
             <button class="chip active" data-duration="all">Любое</button>
@@ -247,6 +255,7 @@ a{color:var(--accent);text-decoration:none}
         </div>
     </section>
 
+    <!-- ВСЕ ФИЛЬМЫ -->
     <section class="section">
         <div class="catalog-head" style="margin-bottom:24px;">
             <div>
@@ -304,19 +313,21 @@ a{color:var(--accent);text-decoration:none}
             </div>
 
             <div class="filter-dropdown">
-                <button class="filter-btn" data-dropdown="mood">Настроение <span class="filter-chevron">⌄</span></button>
+                <button class="filter-btn" data-dropdown="occasion">Случай <span class="filter-chevron">⌄</span></button>
                 <div class="filter-menu">
-                    <button class="filter-option" data-filter="mood" data-value="funny"><span class="filter-checkbox"></span> 😄 Весёлое</button>
-                    <button class="filter-option" data-filter="mood" data-value="melancholic"><span class="filter-checkbox"></span> 🌧 Меланхоличное</button>
-                    <button class="filter-option" data-filter="mood" data-value="sad"><span class="filter-checkbox"></span> 😢 Грустное</button>
-                    <button class="filter-option" data-filter="mood" data-value="tense"><span class="filter-checkbox"></span> ⚡ Напряжённое</button>
-                    <button class="filter-option" data-filter="mood" data-value="cozy"><span class="filter-checkbox"></span> 🕯 Уютное</button>
-                    <button class="filter-option" data-filter="mood" data-value="light"><span class="filter-checkbox"></span> ☀️ Лёгкое</button>
+                    <button class="filter-option" data-filter="occasion" data-value="family"><span class="filter-checkbox"></span> 👨‍👩‍👧 Семейный вечер</button>
+                    <button class="filter-option" data-filter="occasion" data-value="girls"><span class="filter-checkbox"></span> 💃 Девичник</button>
+                    <button class="filter-option" data-filter="occasion" data-value="friends"><span class="filter-checkbox"></span> 🧑‍🤝‍🧑 С друзьями</button>
+                    <button class="filter-option" data-filter="occasion" data-value="sport"><span class="filter-checkbox"></span> 🏋️ Про спорт</button>
+                    <button class="filter-option" data-filter="occasion" data-value="inspire"><span class="filter-checkbox"></span> ✨ Вдохновляющее</button>
+                    <button class="filter-option" data-filter="occasion" data-value="date"><span class="filter-checkbox"></span> 💘 Для свидания</button>
+                    <button class="filter-option" data-filter="occasion" data-value="alone"><span class="filter-checkbox"></span> 🌧 На одинокий вечер</button>
+                    <button class="filter-option" data-filter="occasion" data-value="holiday"><span class="filter-checkbox"></span> 🎄 Праздничное</button>
                 </div>
             </div>
 
             <div class="filter-dropdown">
-                <button class="filter-btn" data-dropdown="time">Длительность <span class="filter-chevron">⌄</span></button>
+                <button class="filter-btn" data-dropdown="time">Продолжительность <span class="filter-chevron">⌄</span></button>
                 <div class="filter-menu">
                     <button class="filter-option" data-filter="time" data-value="short"><span class="filter-checkbox"></span> До 90 минут</button>
                     <button class="filter-option" data-filter="time" data-value="medium"><span class="filter-checkbox"></span> 90–120 минут</button>
@@ -389,25 +400,25 @@ a{color:var(--accent);text-decoration:none}
         <button class="modal-submit" onclick="submitAI()">Подобрать фильм</button>
     </div>
 </div>
-
 <script>
 var movies=[
-{id:1259195,title:"Война искусств",year:2019,genres:["документальный","искусство"],rating:7.4,runtime:102,age:"18+",countries:["Норвегия","Германия"],poster:"posters/1259195.jpg",collections:["popular"],moods:["tense","melancholic"]},
-{id:5237750,title:"Не хороните меня без Ивана",year:2022,genres:["драма","комедия","исторический"],rating:8.0,runtime:124,age:"12+",countries:["Россия"],poster:"posters/5237750.jpg",collections:["popular","for-you","spring","drama","comedy","history"],moods:["cozy","light"]},
-{id:225011,title:"Изгнание",year:2007,genres:["драма"],rating:7.3,runtime:150,age:"18+",countries:["Россия"],poster:"posters/225011.jpg",collections:["for-you","love","drama","romance"],moods:["sad","melancholic","tense"]},
-{id:1347315,title:"Книготорговцы",year:2019,genres:["документальный","культура"],rating:7.6,runtime:99,age:"18+",countries:["США"],poster:"posters/1347315.jpg",collections:["popular","spring","doc"],moods:["cozy","light"]},
-{id:425,title:"Седьмая печать",year:1957,genres:["драма","фэнтези"],rating:8.0,runtime:96,age:"18+",countries:["Швеция"],poster:"posters/425.jpg",collections:["popular","for-you","drama","fantasy"],moods:["melancholic","sad","tense"]},
-{id:714248,title:"Песнь моря",year:2014,genres:["анимация","фэнтези","семейный"],rating:8.0,runtime:93,age:"6+",countries:["Ирландия"],poster:"posters/714248.jpg",collections:["popular","spring","love","anime","fantasy","family"],moods:["cozy","light"]},
-{id:425400,title:"Пожары",year:2010,genres:["драма","детектив","военный"],rating:8.1,runtime:131,age:"18+",countries:["Канада","Франция"],poster:"posters/425400.jpg",collections:["popular","for-you","detective","drama","war"],moods:["tense","sad","melancholic"]},
-{id:1040690,title:"Середина 90-х",year:2018,genres:["драма","комедия"],rating:7.4,runtime:85,age:"18+",countries:["США"],poster:"posters/1040690.jpg",collections:["for-you","spring","drama","comedy"],moods:["light","cozy","funny"]},
-{id:677566,title:"Великая красота",year:2013,genres:["драма","комедия"],rating:7.8,runtime:141,age:"18+",countries:["Италия","Франция"],poster:"posters/677566.jpg",collections:["popular","love","drama","comedy","romance"],moods:["melancholic","light"]},
-{id:6553389,title:"Новая волна",year:2025,genres:["драма","комедия","биографический"],rating:7.6,runtime:105,age:"18+",countries:["Франция","США"],poster:"posters/6553389.jpg",collections:["popular","for-you","love","spring","drama","comedy","biography","romance"],moods:["light","funny","cozy"]}
+{id:1259195,title:"Война искусств",year:2019,genres:["документальный","искусство"],rating:7.4,runtime:102,age:"18+",countries:["Норвегия","Германия"],poster:"posters/1259195.jpg",collections:["popular"],occasions:["alone","inspire"]},
+{id:5237750,title:"Не хороните меня без Ивана",year:2022,genres:["драма","комедия","исторический"],rating:8.0,runtime:124,age:"12+",countries:["Россия"],poster:"posters/5237750.jpg",collections:["popular","for-you","spring","drama","comedy","history"],occasions:["family","inspire"]},
+{id:225011,title:"Изгнание",year:2007,genres:["драма"],rating:7.3,runtime:150,age:"18+",countries:["Россия"],poster:"posters/225011.jpg",collections:["for-you","love","drama","romance"],occasions:["alone"]},
+{id:1347315,title:"Книготорговцы",year:2019,genres:["документальный","культура"],rating:7.6,runtime:99,age:"18+",countries:["США"],poster:"posters/1347315.jpg",collections:["popular","spring","doc"],occasions:["alone","family"]},
+{id:425,title:"Седьмая печать",year:1957,genres:["драма","фэнтези"],rating:8.0,runtime:96,age:"18+",countries:["Швеция"],poster:"posters/425.jpg",collections:["popular","for-you","drama","fantasy"],occasions:["alone","friends"]},
+{id:714248,title:"Песнь моря",year:2014,genres:["анимация","фэнтези","семейный"],rating:8.0,runtime:93,age:"6+",countries:["Ирландия"],poster:"posters/714248.jpg",collections:["popular","spring","love","anime","fantasy","family"],occasions:["family","inspire"]},
+{id:425400,title:"Пожары",year:2010,genres:["драма","детектив","военный"],rating:8.1,runtime:131,age:"18+",countries:["Канада","Франция"],poster:"posters/425400.jpg",collections:["popular","for-you","detective","drama","war"],occasions:["friends","alone"]},
+{id:1040690,title:"Середина 90-х",year:2018,genres:["драма","комедия"],rating:7.4,runtime:85,age:"18+",countries:["США"],poster:"posters/1040690.jpg",collections:["for-you","spring","drama","comedy"],occasions:["friends","alone"]},
+{id:677566,title:"Великая красота",year:2013,genres:["драма","комедия"],rating:7.8,runtime:141,age:"18+",countries:["Италия","Франция"],poster:"posters/677566.jpg",collections:["popular","love","drama","comedy","romance"],occasions:["date","inspire"]},
+{id:6553389,title:"Новая волна",year:2025,genres:["драма","комедия","биографический"],rating:7.6,runtime:105,age:"18+",countries:["Франция","США"],poster:"posters/6553389.jpg",collections:["popular","for-you","love","spring","drama","comedy","biography","romance"],occasions:["date","friends","inspire"]}
 ];
 
 var PLACEHOLDER='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450"><rect width="100%" height="100%" fill="#1A1A1A"/><text x="50%" y="50%" fill="#666666" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Нет постера</text></svg>');
+
 var favorites={};
 var currentSort='popular';
-var filters={genre:null,rating:null,time:null,year:null,country:null,age:null,mood:null};
+var filters={genre:null,rating:null,time:null,year:null,country:null,age:null,occasion:null};
 var extraFilters={original:false,subtitles:false,kids:false};
 
 var currentPage=1;
@@ -441,7 +452,7 @@ return list.filter(function(m){
 if(filters.genre&&m.genres.indexOf(filters.genre)===-1)return false;
 if(filters.rating&&m.rating<parseFloat(filters.rating))return false;
 if(filters.age&&m.age!==filters.age)return false;
-if(filters.mood&&(!m.moods||m.moods.indexOf(filters.mood)===-1))return false;
+if(filters.occasion&&(!m.occasions||m.occasions.indexOf(filters.occasion)===-1))return false;
 if(filters.time==='short'&&m.runtime>=90)return false;
 if(filters.time==='medium'&&(m.runtime<90||m.runtime>120))return false;
 if(filters.time==='long'&&m.runtime<=120)return false;
@@ -501,8 +512,19 @@ buildRow(w,list);
 }
 
 function getCollectionList(key){
-if(key==='funny'||key==='melancholic'||key==='sad'||key==='tense'||key==='cozy'||key==='light'){
-return movies.filter(function(m){return m.moods&&m.moods.indexOf(key)!==-1;});
+var occasionMap={
+'occ-family':'family',
+'occ-girls':'girls',
+'occ-friends':'friends',
+'occ-sport':'sport',
+'occ-inspire':'inspire',
+'occ-date':'date',
+'occ-alone':'alone',
+'occ-holiday':'holiday'
+};
+if(occasionMap[key]){
+var occ=occasionMap[key];
+return movies.filter(function(m){return m.occasions&&m.occasions.indexOf(occ)!==-1;});
 }
 return movies.filter(function(m){return m.collections&&m.collections.indexOf(key)!==-1;});
 }
@@ -536,18 +558,33 @@ buildRow(w,list);
 
 function initTimeChips(){
 var chips=document.querySelectorAll('#time-chips .chip');
+var moreLink=document.getElementById('time-more-link');
+
+function updateMoreLink(){
+var active=document.querySelector('#time-chips .chip.active');
+var dur=active?active.dataset.duration:'all';
+if(!moreLink)return;
+if(dur==='all'){
+moreLink.href='section.html?title=Продолжительность фильма';
+}else{
+moreLink.href='section.html?title=Продолжительность фильма&time='+dur;
+}
+}
+
 chips.forEach(function(c){
 c.addEventListener('click',function(){
 chips.forEach(function(x){x.classList.remove('active');});
 c.classList.add('active');
 renderTimeRow(c.dataset.duration);
+updateMoreLink();
 });
 });
+
+updateMoreLink();
 }
 
 function renderCatalog(resetPage){
 if(resetPage!==false)currentPage=1;
-
 var catalog=document.getElementById('catalog');
 var status=document.getElementById('catalog-status');
 var pagination=document.getElementById('pagination');
@@ -559,7 +596,6 @@ list=sortMovies(list);
 var total=list.length;
 var totalPages=Math.max(1,Math.ceil(total/PER_PAGE));
 if(currentPage>totalPages)currentPage=totalPages;
-
 var start=(currentPage-1)*PER_PAGE;
 var pageItems=list.slice(start,start+PER_PAGE);
 
@@ -577,7 +613,6 @@ var from=start+1;
 var to=Math.min(start+PER_PAGE,total);
 status.textContent='Показано '+from+'–'+to+' из '+total+' '+declOfNum(total,['фильма','фильмов','фильмов']);
 }
-
 renderPagination(totalPages);
 }
 
@@ -603,21 +638,16 @@ return b;
 }
 
 pag.appendChild(pageBtn('←',currentPage-1,{disabled:currentPage===1}));
-
-var pages=[];
-for(var i=1;i<=totalPages;i++)pages.push(i);
-
-pages.forEach(function(p){
-if(p===1||p===totalPages||Math.abs(p-currentPage)<=1){
-pag.appendChild(pageBtn(p,p,{active:p===currentPage}));
-}else if(Math.abs(p-currentPage)===2){
+for(var i=1;i<=totalPages;i++){
+if(i===1||i===totalPages||Math.abs(i-currentPage)<=1){
+pag.appendChild(pageBtn(i,i,{active:i===currentPage}));
+}else if(Math.abs(i-currentPage)===2){
 var dots=document.createElement('span');
 dots.className='page-dots';
 dots.textContent='…';
 pag.appendChild(dots);
 }
-});
-
+}
 pag.appendChild(pageBtn('→',currentPage+1,{disabled:currentPage===totalPages}));
 }
 
@@ -695,6 +725,8 @@ document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){o.c
 var tc=document.querySelectorAll('#time-chips .chip');
 tc.forEach(function(c,i){c.classList.toggle('active',i===0);});
 renderTimeRow('all');
+var ml=document.getElementById('time-more-link');
+if(ml)ml.href='section.html?title=Продолжительность фильма';
 currentSort='popular';
 var sm=document.getElementById('sort-menu'),sl=document.getElementById('sort-label');
 if(sm)sm.querySelectorAll('.sort-option').forEach(function(o){o.classList.toggle('active',o.dataset.sort==='popular');});
