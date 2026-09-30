@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Раздел — Кино на вечер</title>
+<style>
+:root{--bg:#0F0F10;--bg-elevated:#1A1A1A;--bg-card:#161616;--bg-section:#141416;--border:#222222;--border-strong:#303030;--text:#9B9B9B;--text-bright:#ECECEC;--text-faint:#666666;--accent:#FDDD2D;--accent-hover:#E8C920;--radius-md:12px;--radius-lg:14px;--radius-xl:20px;--radius-section:24px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.4;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+.header{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:16px 40px;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.logo{font-size:20px;font-weight:700;color:var(--text-bright);white-space:nowrap}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--text);font-size:15px;justify-self:center;transition:color 0.2s ease}
+.back-link:hover{color:var(--accent);text-decoration:none}
+.back-link svg{display:block}
+.container{max-width:1400px;margin:0 auto;padding:40px}
+.section-page-title{font-size:40px;font-weight:700;color:var(--text-bright);line-height:1.2;margin-bottom:8px}
+.section-page-sub{font-size:16px;color:var(--text);margin-bottom:32px}
+.catalog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.reset-btn{display:none;background:transparent;color:var(--accent);border:1px solid var(--accent);border-radius:var(--radius-xl);padding:6px 14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+.reset-btn:hover{background:var(--accent);color:var(--bg)}
+.reset-btn.visible{display:inline-block}
+.filters-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.filter-dropdown{position:relative}
+.filter-btn{background:var(--bg-elevated);color:var(--text-bright);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 18px;font-size:15px;font-family:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:700}
+.filter-btn.active .filter-chevron{transform:rotate(180deg)}
+.filter-chevron{font-size:11px;opacity:0.7;display:inline-block;transition:transform 0.15s ease}
+.filter-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:260px;max-height:360px;overflow-y:auto;background:var(--bg-elevated);border:1px solid var(--border-strong);border-radius:var(--radius-md);padding:8px;display:none;flex-direction:column;gap:2px;z-index:60;box-shadow:0 12px 28px rgba(0,0,0,0.55)}
+.filter-menu.open{display:flex}
+.filter-option{display:flex;align-items:center;gap:10px;background:transparent;border:none;color:var(--text-bright);font-size:15px;font-family:inherit;font-weight:500;text-align:left;padding:10px 12px;border-radius:8px;cursor:pointer;width:100%}
+.filter-option:hover{background:rgba(255,255,255,0.05)}
+.filter-option.selected{color:var(--accent);font-weight:700}
+.filter-checkbox{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border-strong);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.filter-option.selected .filter-checkbox{border-color:var(--accent);background:var(--accent)}
+.filter-option.selected .filter-checkbox::after{content:'✓';color:var(--bg);font-size:12px;font-weight:700;line-height:1}
+.sort-dropdown{position:relative}
+.filters-divider{width:4px;height:4px;background:var(--text-faint);border-radius:50%;margin:0 4px}
+.sort-icon{font-size:15px;margin-right:4px}
+.sort-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:240px;background:var(--bg-elevated);border:1px solid var(--border-strong);border-radius:var(--radius-md);padding:6px;display:none;flex-direction:column;gap:2px;z-index:60;box-shadow:0 12px 28px rgba(0,0,0,0.55)}
+.sort-menu.open{display:flex}
+.sort-option{display:flex;align-items:center;gap:10px;background:transparent;border:none;color:var(--text-bright);font-size:15px;font-family:inherit;font-weight:500;text-align:left;padding:10px 14px;border-radius:8px;cursor:pointer;width:100%}
+.sort-option:hover{background:rgba(255,255,255,0.05)}
+.sort-radio{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border-strong);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.sort-option.active .sort-radio{border-color:var(--accent)}
+.sort-option.active .sort-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.sort-option.active{color:var(--accent);font-weight:700}
+.extra-filters{display:flex;flex-wrap:wrap;gap:10px;padding-top:4px;margin-bottom:24px}
+.extra-chip{background:var(--bg-elevated);color:var(--text-bright);border:1px solid var(--border);border-radius:var(--radius-xl);padding:10px 18px;font-size:14px;font-family:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.extra-chip:hover{border-color:var(--accent);color:var(--accent)}
+.extra-chip.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:700}
+.extra-plus{font-size:16px;line-height:1;transition:transform 0.2s ease}
+.extra-chip.active .extra-plus{transform:rotate(45deg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.card{cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:transform 0.2s ease}
+.card:hover{transform:translateY(-4px)}
+.card-poster{position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;border-radius:var(--radius-md);background:var(--bg-elevated)}
+.card-poster img{width:100%;height:100%;object-fit:cover;display:block}
+.card-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.78);color:var(--accent);padding:4px 8px;border-radius:6px;font-weight:700;font-size:13px}
+.card-age{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.78);color:#FFF;padding:3px 8px;border-radius:6px;font-weight:700;font-size:11px;border:1px solid rgba(255,255,255,0.18)}
+.card-heart{position:absolute;top:10px;left:10px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.55);border:none;padding:0;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;z-index:3}
+.card-heart:hover{transform:scale(1.08)}
+.card-heart.active{color:#ff4d6d}
+.card-heart svg{width:16px;height:16px;display:block}
+.card-title{font-size:15px;font-weight:700;color:var(--text-bright);line-height:1.3;padding:0 2px}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;padding:0 2px}
+.tag{background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:20px;padding:3px 9px;font-size:11px;white-space:nowrap}
+.empty{text-align:center;padding:40px;color:var(--text);font-size:15px;background:var(--bg-elevated);border-radius:var(--radius-md);border:1px dashed var(--border-strong);width:100%;grid-column:1/-1}
+.pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:32px;flex-wrap:wrap}
+.page-btn{min-width:42px;height:42px;padding:0 14px;border-radius:var(--radius-md);background:var(--bg-elevated);color:var(--text-bright);border:1px solid var(--border);font-size:15px;font-family:inherit;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all 0.15s ease}
+.page-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.page-btn.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:700}
+.page-btn:disabled{opacity:0.4;cursor:default}
+.page-dots{color:var(--text-faint);padding:0 6px}
+.footer{border-top:1px solid var(--border);padding:40px;text-align:center;color:var(--text);font-size:14px}
+@media(max-width:1024px){.header{grid-template-columns:auto auto;gap:16px;padding:16px 24px}.back-link{order:3;grid-column:1/-1;justify-self:start}.container{padding:32px 24px}}
+@media(max-width:768px){.header{padding:12px 16px}.container{padding:24px 16px}.section-page-title{font-size:28px}.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.page-btn{min-width:36px;height:36px;font-size:14px}}
+</style>
+</head>
+
+
+<body>
+
+<header class="header">
+    <div class="logo">Кино на вечер</div>
+    <a class="back-link" href="index.html">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+        Назад на главную
+    </a>
+    <div></div>
+</header>
+
+<main class="container">
+    <h1 class="section-page-title" id="section-title">Раздел</h1>
+    <p class="section-page-sub" id="section-count">Загрузка...</p>
+
+    <div class="catalog-head">
+        <div></div>
+        <button class="reset-btn" id="reset-btn">Сбросить фильтры</button>
+    </div>
+
+    <div class="filters-row" id="main-filters">
+        <div class="sort-dropdown">
+            <button class="filter-btn filter-sort active" id="sort-btn"><span class="sort-icon">⇅</span><span id="sort-label">По популярности</span></button>
+            <div class="sort-menu" id="sort-menu">
+                <button class="sort-option active" data-sort="popular"><span class="sort-radio"></span> По популярности</button>
+                <button class="sort-option" data-sort="fresh"><span class="sort-radio"></span> По новизне</button>
+                <button class="sort-option" data-sort="rating"><span class="sort-radio"></span> По рейтингу</button>
+            </div>
+        </div>
+
+        <span class="filters-divider"></span>
+
+        <div class="filter-dropdown">
+            <button class="filter-btn" data-dropdown="genre">Жанры <span class="filter-chevron">⌄</span></button>
+            <div class="filter-menu">
+                <button class="filter-option" data-filter="genre" data-value="драма"><span class="filter-checkbox"></span> Драмы</button>
+                <button class="filter-option" data-filter="genre" data-value="комедия"><span class="filter-checkbox"></span> Комедии</button>
+                <button class="filter-option" data-filter="genre" data-value="детектив"><span class="filter-checkbox"></span> Детективы</button>
+                <button class="filter-option" data-filter="genre" data-value="военный"><span class="filter-checkbox"></span> Военные</button>
+                <button class="filter-option" data-filter="genre" data-value="фэнтези"><span class="filter-checkbox"></span> Фэнтези</button>
+                <button class="filter-option" data-filter="genre" data-value="анимация"><span class="filter-checkbox"></span> Анимация</button>
+                <button class="filter-option" data-filter="genre" data-value="документальный"><span class="filter-checkbox"></span> Документальные</button>
+                <button class="filter-option" data-filter="genre" data-value="исторический"><span class="filter-checkbox"></span> Исторические</button>
+                <button class="filter-option" data-filter="genre" data-value="биографический"><span class="filter-checkbox"></span> Биография</button>
+                <button class="filter-option" data-filter="genre" data-value="семейный"><span class="filter-checkbox"></span> Семейные</button>
+            </div>
+        </div>
+
+        <div class="filter-dropdown">
+            <button class="filter-btn" data-dropdown="rating">Любой рейтинг <span class="filter-chevron">⌄</span></button>
+            <div class="filter-menu">
+                <button class="filter-option" data-filter="rating" data-value="7"><span class="filter-checkbox"></span> 7 и выше</button>
+                <button class="filter-option" data-filter="rating" data-value="7.5"><span class="filter-checkbox"></span> 7.5 и выше</button>
+                <button class="filter-option" data-filter="rating" data-value="8"><span class="filter-checkbox"></span> 8 и выше</button>
+            </div>
+        </div>
+
+        <div class="filter-dropdown">
+            <button class="filter-btn" data-dropdown="age">Возраст <span class="filter-chevron">⌄</span></button>
+            <div class="filter-menu">
+                <button class="filter-option" data-filter="age" data-value="6+"><span class="filter-checkbox"></span> 6+</button>
+                <button class="filter-option" data-filter="age" data-value="12+"><span class="filter-checkbox"></span> 12+</button>
+                <button class="filter-option" data-filter="age" data-value="16+"><span class="filter-checkbox"></span> 16+</button>
+                <button class="filter-option" data-filter="age" data-value="18+"><span class="filter-checkbox"></span> 18+</button>
+            </div>
+        </div>
+
+        <div class="filter-dropdown">
+            <button class="filter-btn" data-dropdown="mood">Настроение <span class="filter-chevron">⌄</span></button>
+            <div class="filter-menu">
+                <button class="filter-option" data-filter="mood" data-value="funny"><span class="filter-checkbox"></span> 😄 Весёлое</button>
+                <button class="filter-option" data-filter="mood" data-value="melancholic"><span class="filter-checkbox"></span> 🌧 Меланхоличное</button>
+                <button class="filter-option" data-filter="mood" data-value="sad"><span class="filter-checkbox"></span> 😢 Грустное</button>
+                <button class="filter-option" data-filter="mood" data-value="tense"><span class="filter-checkbox"></span> ⚡ Напряжённое</button>
+                <button class="filter-option" data-filter="mood" data-value="cozy"><span class="filter-checkbox"></span> 🕯 Уютное</button>
+                <button class="filter-option" data-filter="mood" data-value="light"><span class="filter-checkbox"></span> ☀️ Лёгкое</button>
+            </div>
+        </div>
+
+        <div class="filter-dropdown">
+            <button class="filter-btn" data-dropdown="time">Длительность <span class="filter-chevron">⌄</span></button>
+            <div class="filter-menu">
+                <button class="filter-option" data-filter="time" data-value="short"><span class="filter-checkbox"></span> До 90 минут</button>
+                <button class="filter-option" data-filter="time" data-value="medium"><span class="filter-checkbox"></span> 90–120 минут</button>
+                <button class="filter-option" data-filter="time" data-value="long"><span class="filter-checkbox"></span> Больше 2 часов</button>
+            </div>
+        </div>
+
+        <div class="filter-dropdown">
+            <button class="filter-btn" data-dropdown="year">Год выхода <span class="filter-chevron">⌄</span></button>
+            <div class="filter-menu">
+                <button class="filter-option" data-filter="year" data-value="2019-2026"><span class="filter-checkbox"></span> 2019–2026</button>
+                <button class="filter-option" data-filter="year" data-value="2010-2018"><span class="filter-checkbox"></span> 2010–2018</button>
+                <button class="filter-option" data-filter="year" data-value="2000-2009"><span class="filter-checkbox"></span> 2000-е</button>
+                <button class="filter-option" data-filter="year" data-value="before-2000"><span class="filter-checkbox"></span> До 2000</button>
+            </div>
+        </div>
+
+        <div class="filter-dropdown">
+            <button class="filter-btn" data-dropdown="country">Страны <span class="filter-chevron">⌄</span></button>
+            <div class="filter-menu">
+                <button class="filter-option" data-filter="country" data-value="Россия"><span class="filter-checkbox"></span> Россия</button>
+                <button class="filter-option" data-filter="country" data-value="США"><span class="filter-checkbox"></span> США</button>
+                <button class="filter-option" data-filter="country" data-value="Франция"><span class="filter-checkbox"></span> Франция</button>
+                <button class="filter-option" data-filter="country" data-value="Швеция"><span class="filter-checkbox"></span> Швеция</button>
+                <button class="filter-option" data-filter="country" data-value="Канада"><span class="filter-checkbox"></span> Канада</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="extra-filters">
+        <button class="extra-chip" data-extra="original"><span class="extra-plus">+</span> На языке оригинала</button>
+        <button class="extra-chip" data-extra="subtitles"><span class="extra-plus">+</span> С субтитрами</button>
+        <button class="extra-chip" data-extra="kids"><span class="extra-plus">+</span> Можно с детьми</button>
+    </div>
+
+    <div class="grid" id="catalog"></div>
+    <div class="pagination" id="pagination"></div>
+</main>
+
+<footer class="footer">Кино на вечер. Прототип. 2026</footer>
+
+<script>
+var movies=[
+{id:1259195,title:"Война искусств",year:2019,genres:["документальный","искусство"],rating:7.4,runtime:102,age:"18+",countries:["Норвегия","Германия"],poster:"posters/1259195.jpg",collections:["popular"],moods:["tense","melancholic"]},
+{id:5237750,title:"Не хороните меня без Ивана",year:2022,genres:["драма","комедия","исторический"],rating:8.0,runtime:124,age:"12+",countries:["Россия"],poster:"posters/5237750.jpg",collections:["popular","for-you","spring","drama","comedy","history"],moods:["cozy","light"]},
+{id:225011,title:"Изгнание",year:2007,genres:["драма"],rating:7.3,runtime:150,age:"18+",countries:["Россия"],poster:"posters/225011.jpg",collections:["for-you","love","drama","romance"],moods:["sad","melancholic","tense"]},
+{id:1347315,title:"Книготорговцы",year:2019,genres:["документальный","культура"],rating:7.6,runtime:99,age:"18+",countries:["США"],poster:"posters/1347315.jpg",collections:["popular","spring","doc"],moods:["cozy","light"]},
+{id:425,title:"Седьмая печать",year:1957,genres:["драма","фэнтези"],rating:8.0,runtime:96,age:"18+",countries:["Швеция"],poster:"posters/425.jpg",collections:["popular","for-you","drama","fantasy"],moods:["melancholic","sad","tense"]},
+{id:714248,title:"Песнь моря",year:2014,genres:["анимация","фэнтези","семейный"],rating:8.0,runtime:93,age:"6+",countries:["Ирландия"],poster:"posters/714248.jpg",collections:["popular","spring","love","anime","fantasy","family"],moods:["cozy","light"]},
+{id:425400,title:"Пожары",year:2010,genres:["драма","детектив","военный"],rating:8.1,runtime:131,age:"18+",countries:["Канада","Франция"],poster:"posters/425400.jpg",collections:["popular","for-you","detective","drama","war"],moods:["tense","sad","melancholic"]},
+{id:1040690,title:"Середина 90-х",year:2018,genres:["драма","комедия"],rating:7.4,runtime:85,age:"18+",countries:["США"],poster:"posters/1040690.jpg",collections:["for-you","spring","drama","comedy"],moods:["light","cozy","funny"]},
+{id:677566,title:"Великая красота",year:2013,genres:["драма","комедия"],rating:7.8,runtime:141,age:"18+",countries:["Италия","Франция"],poster:"posters/677566.jpg",collections:["popular","love","drama","comedy","romance"],moods:["melancholic","light"]},
+{id:6553389,title:"Новая волна",year:2025,genres:["драма","комедия","биографический"],rating:7.6,runtime:105,age:"18+",countries:["Франция","США"],poster:"posters/6553389.jpg",collections:["popular","for-you","love","spring","drama","comedy","biography","romance"],moods:["light","funny","cozy"]}
+];
+
+var PLACEHOLDER='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450"><rect width="100%" height="100%" fill="#1A1A1A"/><text x="50%" y="50%" fill="#666666" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Нет постера</text></svg>');
+var favorites={};
+var currentSort='popular';
+var filters={genre:null,rating:null,time:null,year:null,country:null,age:null,mood:null};
+var extraFilters={original:false,subtitles:false,kids:false};
+
+var currentPage=1;
+var PER_PAGE=8;
+
+// Значения из URL
+var params=new URLSearchParams(window.location.search);
+var sectionTitle=params.get('title')||'Фильмы';
+var preCollection=params.get('collection');
+var preMood=params.get('mood');
+
+// Заранее задаём фильтр, если пришли по ссылке
+if(preCollection&&['drama','comedy','detective','war','fantasy','anime','doc','history','romance','biography','family'].indexOf(preCollection)!==-1){
+filters.genre=null; // применим по collection отдельно
+}
+if(preMood){
+filters.mood=preMood;
+}
+
+function declOfNum(n,t){var c=[2,0,1,1,1,2];return t[(n%100>4&&n%100<20)?2:c[(n%10<5)?n%10:5]];}
+function heartSVG(a){return '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20.5l-1.45-1.32C5.4 14.36 2 11.28 2 7.5 2 4.42 4.42 2 7.5 2c1.74 0 3.41.81 4.5 2.09C13.09 2.81 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.78-3.4 6.86-8.55 11.68L12 20.5z" stroke="currentColor" stroke-width="1.7" fill="'+(a?'currentColor':'none')+'" stroke-linejoin="round" stroke-linecap="round"/></svg>';}
+
+function createCard(m){
+var card=document.createElement('div');
+card.className='card';
+var tags=m.genres.slice(0,2).map(function(g){return '<span class="tag">'+g+'</span>';}).join('');
+var isFav=!!favorites[m.id];
+card.innerHTML='<div class="card-poster"><img src="'+m.poster+'" alt="'+m.title+'" onerror="this.src=\''+PLACEHOLDER+'\'"><div class="card-badge">'+m.rating+'</div><div class="card-age">'+m.age+'</div><button class="card-heart'+(isFav?' active':'')+'" data-id="'+m.id+'">'+heartSVG(isFav)+'</button></div><div class="card-title">'+m.title+'</div><div class="card-tags">'+tags+'</div>';
+card.addEventListener('click',function(e){if(e.target.closest('.card-heart'))return;window.location.href='movie.html?id='+m.id;});
+var heart=card.querySelector('.card-heart');
+heart.addEventListener('click',function(e){e.stopPropagation();if(favorites[m.id]){delete favorites[m.id];heart.classList.remove('active');heart.innerHTML=heartSVG(false);}else{favorites[m.id]=true;heart.classList.add('active');heart.innerHTML=heartSVG(true);}});
+return card;
+}
+
+function sortMovies(list){
+var s=list.slice();
+if(currentSort==='popular'){s.sort(function(a,b){var ap=(a.collections||[]).length,bp=(b.collections||[]).length;if(bp!==ap)return bp-ap;return b.rating-a.rating;});}
+else if(currentSort==='fresh'){s.sort(function(a,b){return b.year-a.year;});}
+else if(currentSort==='rating'){s.sort(function(a,b){return b.rating-a.rating;});}
+return s;
+}
+
+function filterMovies(list){
+return list.filter(function(m){
+if(preCollection&&(!m.collections||m.collections.indexOf(preCollection)===-1))return false;
+if(filters.genre&&m.genres.indexOf(filters.genre)===-1)return false;
+if(filters.rating&&m.rating<parseFloat(filters.rating))return false;
+if(filters.age&&m.age!==filters.age)return false;
+if(filters.mood&&(!m.moods||m.moods.indexOf(filters.mood)===-1))return false;
+if(filters.time==='short'&&m.runtime>=90)return false;
+if(filters.time==='medium'&&(m.runtime<90||m.runtime>120))return false;
+if(filters.time==='long'&&m.runtime<=120)return false;
+if(filters.year){
+var y=m.year;
+if(filters.year==='2019-2026'&&(y<2019||y>2026))return false;
+if(filters.year==='2010-2018'&&(y<2010||y>2018))return false;
+if(filters.year==='2000-2009'&&(y<2000||y>2009))return false;
+if(filters.year==='before-2000'&&y>=2000)return false;
+}
+if(filters.country&&(!m.countries||m.countries.indexOf(filters.country)===-1))return false;
+return true;
+});
+}
+
+function renderCatalog(resetPage){
+if(resetPage!==false)currentPage=1;
+var catalog=document.getElementById('catalog');
+var pagination=document.getElementById('pagination');
+var countEl=document.getElementById('section-count');
+if(!catalog)return;
+
+var list=filterMovies(movies);
+list=sortMovies(list);
+
+var total=list.length;
+var totalPages=Math.max(1,Math.ceil(total/PER_PAGE));
+if(currentPage>totalPages)currentPage=totalPages;
+var start=(currentPage-1)*PER_PAGE;
+var pageItems=list.slice(start,start+PER_PAGE);
+
+catalog.innerHTML='';
+if(!total){
+catalog.innerHTML='<div class="empty">По этим фильтрам ничего не нашлось. Попробуйте сбросить.</div>';
+if(pagination)pagination.innerHTML='';
+if(countEl)countEl.textContent='Ничего не найдено';
+return;
+}
+pageItems.forEach(function(m){catalog.appendChild(createCard(m));});
+
+if(countEl){
+countEl.textContent=total+' '+declOfNum(total,['фильм','фильма','фильмов'])+' в разделе';
+}
+renderPagination(totalPages);
+}
+
+function renderPagination(totalPages){
+var pag=document.getElementById('pagination');
+if(!pag)return;
+pag.innerHTML='';
+if(totalPages<=1)return;
+
+function pageBtn(label,page,opts){
+opts=opts||{};
+var b=document.createElement('button');
+b.className='page-btn'+(opts.active?' active':'');
+b.textContent=label;
+if(opts.disabled)b.disabled=true;
+b.addEventListener('click',function(){
+if(opts.disabled||opts.active)return;
+currentPage=page;
+renderCatalog(false);
+window.scrollTo({top:document.getElementById('catalog').offsetTop-100,behavior:'smooth'});
+});
+return b;
+}
+
+pag.appendChild(pageBtn('←',currentPage-1,{disabled:currentPage===1}));
+
+for(var i=1;i<=totalPages;i++){
+if(i===1||i===totalPages||Math.abs(i-currentPage)<=1){
+pag.appendChild(pageBtn(i,i,{active:i===currentPage}));
+}else if(Math.abs(i-currentPage)===2){
+var dots=document.createElement('span');
+dots.className='page-dots';
+dots.textContent='…';
+pag.appendChild(dots);
+}
+}
+
+pag.appendChild(pageBtn('→',currentPage+1,{disabled:currentPage===totalPages}));
+}
+
+function initFilterDropdowns(){
+document.querySelectorAll('.filter-dropdown').forEach(function(dd){
+var btn=dd.querySelector('.filter-btn');
+var menu=dd.querySelector('.filter-menu');
+if(!btn||!menu)return;
+btn.addEventListener('click',function(e){
+e.stopPropagation();
+document.querySelectorAll('.filter-menu.open').forEach(function(m){if(m!==menu)m.classList.remove('open');});
+document.querySelectorAll('.sort-menu.open').forEach(function(m){m.classList.remove('open');});
+menu.classList.toggle('open');
+btn.classList.toggle('active',menu.classList.contains('open'));
+});
+menu.querySelectorAll('.filter-option').forEach(function(opt){
+opt.addEventListener('click',function(e){
+e.stopPropagation();
+var key=opt.dataset.filter,value=opt.dataset.value;
+if(filters[key]===value){filters[key]=null;opt.classList.remove('selected');}
+else{filters[key]=value;menu.querySelectorAll('.filter-option').forEach(function(o){o.classList.remove('selected');});opt.classList.add('selected');}
+renderCatalog();
+updateResetVisibility();
+});
+});
+});
+document.addEventListener('click',function(){
+document.querySelectorAll('.filter-menu.open, .sort-menu.open').forEach(function(m){m.classList.remove('open');});
+document.querySelectorAll('.filter-btn.active').forEach(function(b){if(!b.classList.contains('filter-sort'))b.classList.remove('active');});
+});
+}
+
+function initSort(){
+var btn=document.getElementById('sort-btn');
+var menu=document.getElementById('sort-menu');
+var label=document.getElementById('sort-label');
+if(!btn||!menu)return;
+btn.addEventListener('click',function(e){
+e.stopPropagation();
+document.querySelectorAll('.filter-menu.open').forEach(function(m){m.classList.remove('open');});
+menu.classList.toggle('open');
+});
+menu.querySelectorAll('.sort-option').forEach(function(opt){
+opt.addEventListener('click',function(e){
+e.stopPropagation();
+currentSort=opt.dataset.sort;
+menu.querySelectorAll('.sort-option').forEach(function(o){o.classList.remove('active');});
+opt.classList.add('active');
+if(label)label.textContent=opt.textContent.trim();
+renderCatalog();
+menu.classList.remove('open');
+});
+});
+}
+
+function initExtraFilters(){
+document.querySelectorAll('.extra-chip').forEach(function(c){
+c.addEventListener('click',function(){
+var key=c.dataset.extra;
+extraFilters[key]=!extraFilters[key];
+c.classList.toggle('active',extraFilters[key]);
+updateResetVisibility();
+});
+});
+}
+
+function initReset(){
+var btn=document.getElementById('reset-btn');
+if(!btn)return;
+btn.addEventListener('click',function(){
+Object.keys(extraFilters).forEach(function(k){extraFilters[k]=false;});
+document.querySelectorAll('.extra-chip').forEach(function(c){c.classList.remove('active');});
+Object.keys(filters).forEach(function(k){filters[k]=null;});
+document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){o.classList.remove('selected');});
+currentSort='popular';
+var sm=document.getElementById('sort-menu'),sl=document.getElementById('sort-label');
+if(sm)sm.querySelectorAll('.sort-option').forEach(function(o){o.classList.toggle('active',o.dataset.sort==='popular');});
+if(sl)sl.textContent='По популярности';
+renderCatalog();
+updateResetVisibility();
+});
+}
+
+function updateResetVisibility(){
+var btn=document.getElementById('reset-btn');
+if(!btn)return;
+var anyExtra=Object.keys(extraFilters).some(function(k){return extraFilters[k];});
+var anyFilter=Object.keys(filters).some(function(k){return filters[k];});
+btn.classList.toggle('visible',anyExtra||anyFilter);
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+// Заголовок страницы
+var titleEl=document.getElementById('section-title');
+if(titleEl){
+var icons={
+'Жанры':'🎭 ',
+'По настроению':'💫 ',
+'Продолжительность фильма':'⏱ '
+};
+titleEl.textContent=(icons[sectionTitle]||'')+sectionTitle;
+document.title=sectionTitle+' — Кино на вечер';
+}
+
+// Если пришли с конкретным collection или mood — сразу помечаем соответствующий чип
+if(preMood){
+document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){
+if(o.dataset.filter==='mood'&&o.dataset.value===preMood)o.classList.add('selected');
+});
+}
+if(preCollection){
+var genreMap={
+drama:'драма',comedy:'комедия',detective:'детектив',war:'военный',fantasy:'фэнтези',
+anime:'анимация',doc:'документальный',history:'исторический',
+biography:'биографический',family:'семейный'
+};
+var genreVal=genreMap[preCollection];
+if(genreVal){
+filters.genre=genreVal;
+document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){
+if(o.dataset.filter==='genre'&&o.dataset.value===genreVal)o.classList.add('selected');
+});
+}
+}
+
+renderCatalog();
+initFilterDropdowns();
+initSort();
+initExtraFilters();
+initReset();
+updateResetVisibility();
+});
+</script>
+
+</body>
+</html>
