@@ -146,15 +146,17 @@ a{color:var(--accent);text-decoration:none}
             </div>
         </div>
 
-        <div class="filter-dropdown" data-dropdown-wrap="mood">
-            <button class="filter-btn" data-dropdown="mood">Настроение <span class="filter-chevron">⌄</span></button>
+        <div class="filter-dropdown" data-dropdown-wrap="occasion">
+            <button class="filter-btn" data-dropdown="occasion">Случай <span class="filter-chevron">⌄</span></button>
             <div class="filter-menu">
-                <button class="filter-option" data-filter="mood" data-value="funny"><span class="filter-checkbox"></span> 😄 Весёлое</button>
-                <button class="filter-option" data-filter="mood" data-value="melancholic"><span class="filter-checkbox"></span> 🌧 Меланхоличное</button>
-                <button class="filter-option" data-filter="mood" data-value="sad"><span class="filter-checkbox"></span> 😢 Грустное</button>
-                <button class="filter-option" data-filter="mood" data-value="tense"><span class="filter-checkbox"></span> ⚡ Напряжённое</button>
-                <button class="filter-option" data-filter="mood" data-value="cozy"><span class="filter-checkbox"></span> 🕯 Уютное</button>
-                <button class="filter-option" data-filter="mood" data-value="light"><span class="filter-checkbox"></span> ☀️ Лёгкое</button>
+                <button class="filter-option" data-filter="occasion" data-value="family"><span class="filter-checkbox"></span> 👨‍👩‍👧 Семейный вечер</button>
+                <button class="filter-option" data-filter="occasion" data-value="girls"><span class="filter-checkbox"></span> 💃 Девичник</button>
+                <button class="filter-option" data-filter="occasion" data-value="friends"><span class="filter-checkbox"></span> 🧑‍🤝‍🧑 С друзьями</button>
+                <button class="filter-option" data-filter="occasion" data-value="sport"><span class="filter-checkbox"></span> 🏋️ Про спорт</button>
+                <button class="filter-option" data-filter="occasion" data-value="inspire"><span class="filter-checkbox"></span> ✨ Вдохновляющее</button>
+                <button class="filter-option" data-filter="occasion" data-value="date"><span class="filter-checkbox"></span> 💘 Для свидания</button>
+                <button class="filter-option" data-filter="occasion" data-value="alone"><span class="filter-checkbox"></span> 🌧 На одинокий вечер</button>
+                <button class="filter-option" data-filter="occasion" data-value="holiday"><span class="filter-checkbox"></span> 🎄 Праздничное</button>
             </div>
         </div>
 
@@ -203,22 +205,22 @@ a{color:var(--accent);text-decoration:none}
 
 <script>
 var movies=[
-{id:1259195,title:"Война искусств",year:2019,genres:["документальный","искусство"],rating:7.4,runtime:102,age:"18+",countries:["Норвегия","Германия"],poster:"posters/1259195.jpg",collections:["popular"],moods:["tense","melancholic"]},
-{id:5237750,title:"Не хороните меня без Ивана",year:2022,genres:["драма","комедия","исторический"],rating:8.0,runtime:124,age:"12+",countries:["Россия"],poster:"posters/5237750.jpg",collections:["popular","for-you","spring","drama","comedy","history"],moods:["cozy","light"]},
-{id:225011,title:"Изгнание",year:2007,genres:["драма"],rating:7.3,runtime:150,age:"18+",countries:["Россия"],poster:"posters/225011.jpg",collections:["for-you","love","drama","romance"],moods:["sad","melancholic","tense"]},
-{id:1347315,title:"Книготорговцы",year:2019,genres:["документальный","культура"],rating:7.6,runtime:99,age:"18+",countries:["США"],poster:"posters/1347315.jpg",collections:["popular","spring","doc"],moods:["cozy","light"]},
-{id:425,title:"Седьмая печать",year:1957,genres:["драма","фэнтези"],rating:8.0,runtime:96,age:"18+",countries:["Швеция"],poster:"posters/425.jpg",collections:["popular","for-you","drama","fantasy"],moods:["melancholic","sad","tense"]},
-{id:714248,title:"Песнь моря",year:2014,genres:["анимация","фэнтези","семейный"],rating:8.0,runtime:93,age:"6+",countries:["Ирландия"],poster:"posters/714248.jpg",collections:["popular","spring","love","anime","fantasy","family"],moods:["cozy","light"]},
-{id:425400,title:"Пожары",year:2010,genres:["драма","детектив","военный"],rating:8.1,runtime:131,age:"18+",countries:["Канада","Франция"],poster:"posters/425400.jpg",collections:["popular","for-you","detective","drama","war"],moods:["tense","sad","melancholic"]},
-{id:1040690,title:"Середина 90-х",year:2018,genres:["драма","комедия"],rating:7.4,runtime:85,age:"18+",countries:["США"],poster:"posters/1040690.jpg",collections:["for-you","spring","drama","comedy"],moods:["light","cozy","funny"]},
-{id:677566,title:"Великая красота",year:2013,genres:["драма","комедия"],rating:7.8,runtime:141,age:"18+",countries:["Италия","Франция"],poster:"posters/677566.jpg",collections:["popular","love","drama","comedy","romance"],moods:["melancholic","light"]},
-{id:6553389,title:"Новая волна",year:2025,genres:["драма","комедия","биографический"],rating:7.6,runtime:105,age:"18+",countries:["Франция","США"],poster:"posters/6553389.jpg",collections:["popular","for-you","love","spring","drama","comedy","biography","romance"],moods:["light","funny","cozy"]}
+{id:1259195,title:"Война искусств",year:2019,genres:["документальный","искусство"],rating:7.4,runtime:102,age:"18+",countries:["Норвегия","Германия"],poster:"posters/1259195.jpg",collections:["popular"],occasions:["alone","inspire"]},
+{id:5237750,title:"Не хороните меня без Ивана",year:2022,genres:["драма","комедия","исторический"],rating:8.0,runtime:124,age:"12+",countries:["Россия"],poster:"posters/5237750.jpg",collections:["popular","for-you","spring","drama","comedy","history"],occasions:["family","inspire"]},
+{id:225011,title:"Изгнание",year:2007,genres:["драма"],rating:7.3,runtime:150,age:"18+",countries:["Россия"],poster:"posters/225011.jpg",collections:["for-you","love","drama","romance"],occasions:["alone"]},
+{id:1347315,title:"Книготорговцы",year:2019,genres:["документальный","культура"],rating:7.6,runtime:99,age:"18+",countries:["США"],poster:"posters/1347315.jpg",collections:["popular","spring","doc"],occasions:["alone","family"]},
+{id:425,title:"Седьмая печать",year:1957,genres:["драма","фэнтези"],rating:8.0,runtime:96,age:"18+",countries:["Швеция"],poster:"posters/425.jpg",collections:["popular","for-you","drama","fantasy"],occasions:["alone","friends"]},
+{id:714248,title:"Песнь моря",year:2014,genres:["анимация","фэнтези","семейный"],rating:8.0,runtime:93,age:"6+",countries:["Ирландия"],poster:"posters/714248.jpg",collections:["popular","spring","love","anime","fantasy","family"],occasions:["family","inspire"]},
+{id:425400,title:"Пожары",year:2010,genres:["драма","детектив","военный"],rating:8.1,runtime:131,age:"18+",countries:["Канада","Франция"],poster:"posters/425400.jpg",collections:["popular","for-you","detective","drama","war"],occasions:["friends","alone"]},
+{id:1040690,title:"Середина 90-х",year:2018,genres:["драма","комедия"],rating:7.4,runtime:85,age:"18+",countries:["США"],poster:"posters/1040690.jpg",collections:["for-you","spring","drama","comedy"],occasions:["friends","alone"]},
+{id:677566,title:"Великая красота",year:2013,genres:["драма","комедия"],rating:7.8,runtime:141,age:"18+",countries:["Италия","Франция"],poster:"posters/677566.jpg",collections:["popular","love","drama","comedy","romance"],occasions:["date","inspire"]},
+{id:6553389,title:"Новая волна",year:2025,genres:["драма","комедия","биографический"],rating:7.6,runtime:105,age:"18+",countries:["Франция","США"],poster:"posters/6553389.jpg",collections:["popular","for-you","love","spring","drama","comedy","biography","romance"],occasions:["date","friends","inspire"]}
 ];
 
 var PLACEHOLDER='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450"><rect width="100%" height="100%" fill="#1A1A1A"/><text x="50%" y="50%" fill="#666666" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Нет постера</text></svg>');
 var favorites={};
 var currentSort='popular';
-var filters={genre:null,rating:null,time:null,year:null,country:null,age:null,mood:null};
+var filters={genre:null,rating:null,time:null,year:null,country:null,age:null,occasion:null};
 var extraFilters={original:false,subtitles:false,kids:false};
 
 var currentPage=1;
@@ -227,10 +229,10 @@ var PER_PAGE=8;
 var params=new URLSearchParams(window.location.search);
 var sectionTitle=params.get('title')||'Фильмы';
 var preCollection=params.get('collection');
-var preMood=params.get('mood');
+var preOccasion=params.get('occasion');
 var preTime=params.get('time');
 
-if(preMood)filters.mood=preMood;
+if(preOccasion)filters.occasion=preOccasion;
 if(preTime)filters.time=preTime;
 
 function declOfNum(n,t){var c=[2,0,1,1,1,2];return t[(n%100>4&&n%100<20)?2:c[(n%10<5)?n%10:5]];}
@@ -262,7 +264,7 @@ if(preCollection&&(!m.collections||m.collections.indexOf(preCollection)===-1))re
 if(filters.genre&&m.genres.indexOf(filters.genre)===-1)return false;
 if(filters.rating&&m.rating<parseFloat(filters.rating))return false;
 if(filters.age&&m.age!==filters.age)return false;
-if(filters.mood&&(!m.moods||m.moods.indexOf(filters.mood)===-1))return false;
+if(filters.occasion&&(!m.occasions||m.occasions.indexOf(filters.occasion)===-1))return false;
 if(filters.time==='short'&&m.runtime>=90)return false;
 if(filters.time==='medium'&&(m.runtime<90||m.runtime>120))return false;
 if(filters.time==='long'&&m.runtime<=120)return false;
@@ -331,7 +333,6 @@ return b;
 }
 
 pag.appendChild(pageBtn('←',currentPage-1,{disabled:currentPage===1}));
-
 for(var i=1;i<=totalPages;i++){
 if(i===1||i===totalPages||Math.abs(i-currentPage)<=1){
 pag.appendChild(pageBtn(i,i,{active:i===currentPage}));
@@ -342,7 +343,6 @@ dots.textContent='…';
 pag.appendChild(dots);
 }
 }
-
 pag.appendChild(pageBtn('→',currentPage+1,{disabled:currentPage===totalPages}));
 }
 
@@ -351,8 +351,8 @@ if(preCollection){
 var w=document.querySelector('[data-dropdown-wrap="genre"]');
 if(w)w.style.display='none';
 }
-if(preMood){
-var w2=document.querySelector('[data-dropdown-wrap="mood"]');
+if(preOccasion){
+var w2=document.querySelector('[data-dropdown-wrap="occasion"]');
 if(w2)w2.style.display='none';
 }
 if(preTime){
@@ -449,13 +449,15 @@ var anyFilter=Object.keys(filters).some(function(k){return filters[k];});
 btn.classList.toggle('visible',anyExtra||anyFilter);
 }
 
-var moodNames={
-funny:{icon:'😄 ',name:'Весёлое'},
-melancholic:{icon:'🌧 ',name:'Меланхоличное'},
-sad:{icon:'😢 ',name:'Грустное'},
-tense:{icon:'⚡ ',name:'Напряжённое'},
-cozy:{icon:'🕯 ',name:'Уютное'},
-light:{icon:'☀️ ',name:'Лёгкое'}
+var occasionNames={
+family:{icon:'👨‍👩‍👧 ',name:'Семейный вечер'},
+girls:{icon:'💃 ',name:'Девичник'},
+friends:{icon:'🧑‍🤝‍🧑 ',name:'Вечер с друзьями'},
+sport:{icon:'🏋️ ',name:'Про спорт'},
+inspire:{icon:'✨ ',name:'Вдохновляющее'},
+date:{icon:'💘 ',name:'Для свидания'},
+alone:{icon:'🌧 ',name:'На одинокий вечер'},
+holiday:{icon:'🎄 ',name:'Праздничное'}
 };
 
 var genreNames={
@@ -480,14 +482,14 @@ long:{icon:'⏱ ',name:'Больше 2 часов'}
 
 var sectionIcons={
 'Жанры':'🎭 ',
-'По настроению':'💫 ',
+'Под случай':'🍿 ',
 'Продолжительность фильма':'⏱ '
 };
 
 document.addEventListener('DOMContentLoaded',function(){
 var finalTitle='Фильмы';
-if(preMood&&moodNames[preMood]){
-finalTitle=moodNames[preMood].icon+moodNames[preMood].name;
+if(preOccasion&&occasionNames[preOccasion]){
+finalTitle=occasionNames[preOccasion].icon+occasionNames[preOccasion].name;
 }else if(preCollection&&genreNames[preCollection]){
 finalTitle=genreNames[preCollection].icon+genreNames[preCollection].name;
 }else if(preTime&&timeNames[preTime]){
@@ -499,9 +501,9 @@ var titleEl=document.getElementById('section-title');
 if(titleEl)titleEl.textContent=finalTitle;
 document.title=finalTitle+' — Кино на вечер';
 
-if(preMood){
+if(preOccasion){
 document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){
-if(o.dataset.filter==='mood'&&o.dataset.value===preMood)o.classList.add('selected');
+if(o.dataset.filter==='occasion'&&o.dataset.value===preOccasion)o.classList.add('selected');
 });
 }
 if(preCollection){
