@@ -80,14 +80,13 @@ a{color:var(--accent);text-decoration:none}
 </style>
 </head>
 
-
-<body>
+    <body>
 
 <header class="header">
     <div class="logo">Кино на вечер</div>
     <a class="back-link" href="index.html">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
-        Назад на главную
+        Назад в каталог
     </a>
     <div></div>
 </header>
@@ -226,16 +225,11 @@ var extraFilters={original:false,subtitles:false,kids:false};
 var currentPage=1;
 var PER_PAGE=8;
 
-// Значения из URL
 var params=new URLSearchParams(window.location.search);
 var sectionTitle=params.get('title')||'Фильмы';
 var preCollection=params.get('collection');
 var preMood=params.get('mood');
 
-// Заранее задаём фильтр, если пришли по ссылке
-if(preCollection&&['drama','comedy','detective','war','fantasy','anime','doc','history','romance','biography','family'].indexOf(preCollection)!==-1){
-filters.genre=null; // применим по collection отдельно
-}
 if(preMood){
 filters.mood=preMood;
 }
@@ -441,20 +435,51 @@ var anyFilter=Object.keys(filters).some(function(k){return filters[k];});
 btn.classList.toggle('visible',anyExtra||anyFilter);
 }
 
-document.addEventListener('DOMContentLoaded',function(){
-// Заголовок страницы
-var titleEl=document.getElementById('section-title');
-if(titleEl){
-var icons={
+// Словари для подстановки заголовка
+var moodNames={
+funny:{icon:'😄 ',name:'Весёлое'},
+melancholic:{icon:'🌧 ',name:'Меланхоличное'},
+sad:{icon:'😢 ',name:'Грустное'},
+tense:{icon:'⚡ ',name:'Напряжённое'},
+cozy:{icon:'🕯 ',name:'Уютное'},
+light:{icon:'☀️ ',name:'Лёгкое'}
+};
+
+var genreNames={
+drama:{icon:'🎬 ',name:'Драмы'},
+comedy:{icon:'😂 ',name:'Комедии'},
+detective:{icon:'🕵️ ',name:'Детективы'},
+war:{icon:'⚔️ ',name:'Военное'},
+fantasy:{icon:'🧙 ',name:'Фэнтези'},
+anime:{icon:'🎨 ',name:'Анимация'},
+doc:{icon:'📽 ',name:'Документальные'},
+history:{icon:'📜 ',name:'Историческое'},
+romance:{icon:'💖 ',name:'Романтичное'},
+biography:{icon:'📖 ',name:'Биография'},
+family:{icon:'👨‍👩‍👧 ',name:'Семейные'}
+};
+
+var sectionIcons={
 'Жанры':'🎭 ',
 'По настроению':'💫 ',
 'Продолжительность фильма':'⏱ '
 };
-titleEl.textContent=(icons[sectionTitle]||'')+sectionTitle;
-document.title=sectionTitle+' — Кино на вечер';
-}
 
-// Если пришли с конкретным collection или mood — сразу помечаем соответствующий чип
+document.addEventListener('DOMContentLoaded',function(){
+// Финальный заголовок
+var finalTitle='Фильмы';
+if(preMood&&moodNames[preMood]){
+finalTitle=moodNames[preMood].icon+moodNames[preMood].name;
+}else if(preCollection&&genreNames[preCollection]){
+finalTitle=genreNames[preCollection].icon+genreNames[preCollection].name;
+}else{
+finalTitle=(sectionIcons[sectionTitle]||'')+sectionTitle;
+}
+var titleEl=document.getElementById('section-title');
+if(titleEl)titleEl.textContent=finalTitle;
+document.title=finalTitle+' — Кино на вечер';
+
+// Пометить чипсы в фильтрах, если пришли по ссылке
 if(preMood){
 document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){
 if(o.dataset.filter==='mood'&&o.dataset.value===preMood)o.classList.add('selected');
