@@ -79,8 +79,7 @@ a{color:var(--accent);text-decoration:none}
 @media(max-width:768px){.header{padding:12px 16px}.container{padding:24px 16px}.section-page-title{font-size:28px}.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.page-btn{min-width:36px;height:36px;font-size:14px}}
 </style>
 </head>
-
-    <body>
+<body>
 
 <header class="header">
     <div class="logo">Кино на вечер</div>
@@ -112,7 +111,7 @@ a{color:var(--accent);text-decoration:none}
 
         <span class="filters-divider"></span>
 
-        <div class="filter-dropdown">
+        <div class="filter-dropdown" data-dropdown-wrap="genre">
             <button class="filter-btn" data-dropdown="genre">Жанры <span class="filter-chevron">⌄</span></button>
             <div class="filter-menu">
                 <button class="filter-option" data-filter="genre" data-value="драма"><span class="filter-checkbox"></span> Драмы</button>
@@ -147,7 +146,7 @@ a{color:var(--accent);text-decoration:none}
             </div>
         </div>
 
-        <div class="filter-dropdown">
+        <div class="filter-dropdown" data-dropdown-wrap="mood">
             <button class="filter-btn" data-dropdown="mood">Настроение <span class="filter-chevron">⌄</span></button>
             <div class="filter-menu">
                 <button class="filter-option" data-filter="mood" data-value="funny"><span class="filter-checkbox"></span> 😄 Весёлое</button>
@@ -159,8 +158,8 @@ a{color:var(--accent);text-decoration:none}
             </div>
         </div>
 
-        <div class="filter-dropdown">
-            <button class="filter-btn" data-dropdown="time">Длительность <span class="filter-chevron">⌄</span></button>
+        <div class="filter-dropdown" data-dropdown-wrap="time">
+            <button class="filter-btn" data-dropdown="time">Продолжительность <span class="filter-chevron">⌄</span></button>
             <div class="filter-menu">
                 <button class="filter-option" data-filter="time" data-value="short"><span class="filter-checkbox"></span> До 90 минут</button>
                 <button class="filter-option" data-filter="time" data-value="medium"><span class="filter-checkbox"></span> 90–120 минут</button>
@@ -179,7 +178,7 @@ a{color:var(--accent);text-decoration:none}
         </div>
 
         <div class="filter-dropdown">
-            <button class="filter-btn" data-dropdown="country">Страны <span class="filter-chevron">⌄</span></button>
+            <button class="filter-btn" data-dropdown="country">Страна <span class="filter-chevron">⌄</span></button>
             <div class="filter-menu">
                 <button class="filter-option" data-filter="country" data-value="Россия"><span class="filter-checkbox"></span> Россия</button>
                 <button class="filter-option" data-filter="country" data-value="США"><span class="filter-checkbox"></span> США</button>
@@ -229,10 +228,10 @@ var params=new URLSearchParams(window.location.search);
 var sectionTitle=params.get('title')||'Фильмы';
 var preCollection=params.get('collection');
 var preMood=params.get('mood');
+var preTime=params.get('time');
 
-if(preMood){
-filters.mood=preMood;
-}
+if(preMood)filters.mood=preMood;
+if(preTime)filters.time=preTime;
 
 function declOfNum(n,t){var c=[2,0,1,1,1,2];return t[(n%100>4&&n%100<20)?2:c[(n%10<5)?n%10:5]];}
 function heartSVG(a){return '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20.5l-1.45-1.32C5.4 14.36 2 11.28 2 7.5 2 4.42 4.42 2 7.5 2c1.74 0 3.41.81 4.5 2.09C13.09 2.81 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.78-3.4 6.86-8.55 11.68L12 20.5z" stroke="currentColor" stroke-width="1.7" fill="'+(a?'currentColor':'none')+'" stroke-linejoin="round" stroke-linecap="round"/></svg>';}
@@ -347,6 +346,21 @@ pag.appendChild(dots);
 pag.appendChild(pageBtn('→',currentPage+1,{disabled:currentPage===totalPages}));
 }
 
+function hideAlreadyAppliedFilters(){
+if(preCollection){
+var w=document.querySelector('[data-dropdown-wrap="genre"]');
+if(w)w.style.display='none';
+}
+if(preMood){
+var w2=document.querySelector('[data-dropdown-wrap="mood"]');
+if(w2)w2.style.display='none';
+}
+if(preTime){
+var w3=document.querySelector('[data-dropdown-wrap="time"]');
+if(w3)w3.style.display='none';
+}
+}
+
 function initFilterDropdowns(){
 document.querySelectorAll('.filter-dropdown').forEach(function(dd){
 var btn=dd.querySelector('.filter-btn');
@@ -435,7 +449,6 @@ var anyFilter=Object.keys(filters).some(function(k){return filters[k];});
 btn.classList.toggle('visible',anyExtra||anyFilter);
 }
 
-// Словари для подстановки заголовка
 var moodNames={
 funny:{icon:'😄 ',name:'Весёлое'},
 melancholic:{icon:'🌧 ',name:'Меланхоличное'},
@@ -459,6 +472,12 @@ biography:{icon:'📖 ',name:'Биография'},
 family:{icon:'👨‍👩‍👧 ',name:'Семейные'}
 };
 
+var timeNames={
+short:{icon:'⏱ ',name:'До 90 минут'},
+medium:{icon:'⏱ ',name:'90–120 минут'},
+long:{icon:'⏱ ',name:'Больше 2 часов'}
+};
+
 var sectionIcons={
 'Жанры':'🎭 ',
 'По настроению':'💫 ',
@@ -466,12 +485,13 @@ var sectionIcons={
 };
 
 document.addEventListener('DOMContentLoaded',function(){
-// Финальный заголовок
 var finalTitle='Фильмы';
 if(preMood&&moodNames[preMood]){
 finalTitle=moodNames[preMood].icon+moodNames[preMood].name;
 }else if(preCollection&&genreNames[preCollection]){
 finalTitle=genreNames[preCollection].icon+genreNames[preCollection].name;
+}else if(preTime&&timeNames[preTime]){
+finalTitle=timeNames[preTime].icon+timeNames[preTime].name;
 }else{
 finalTitle=(sectionIcons[sectionTitle]||'')+sectionTitle;
 }
@@ -479,18 +499,13 @@ var titleEl=document.getElementById('section-title');
 if(titleEl)titleEl.textContent=finalTitle;
 document.title=finalTitle+' — Кино на вечер';
 
-// Пометить чипсы в фильтрах, если пришли по ссылке
 if(preMood){
 document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){
 if(o.dataset.filter==='mood'&&o.dataset.value===preMood)o.classList.add('selected');
 });
 }
 if(preCollection){
-var genreMap={
-drama:'драма',comedy:'комедия',detective:'детектив',war:'военный',fantasy:'фэнтези',
-anime:'анимация',doc:'документальный',history:'исторический',
-biography:'биографический',family:'семейный'
-};
+var genreMap={drama:'драма',comedy:'комедия',detective:'детектив',war:'военный',fantasy:'фэнтези',anime:'анимация',doc:'документальный',history:'исторический',biography:'биографический',family:'семейный'};
 var genreVal=genreMap[preCollection];
 if(genreVal){
 filters.genre=genreVal;
@@ -499,7 +514,13 @@ if(o.dataset.filter==='genre'&&o.dataset.value===genreVal)o.classList.add('selec
 });
 }
 }
+if(preTime){
+document.querySelectorAll('.filter-menu .filter-option').forEach(function(o){
+if(o.dataset.filter==='time'&&o.dataset.value===preTime)o.classList.add('selected');
+});
+}
 
+hideAlreadyAppliedFilters();
 renderCatalog();
 initFilterDropdowns();
 initSort();
